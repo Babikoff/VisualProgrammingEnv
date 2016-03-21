@@ -1,0 +1,77 @@
+﻿<!-- Copyright (c) Microsoft Corporation. All rights reserved-->
+<Window x:Class="DesignerRehosting.RehostingWfDesigner"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sapt="clr-namespace:System.Activities.Presentation.Toolbox;assembly=System.Activities.Presentation"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:DesignerRehosting"
+        Title="Учимся программировать" Height="534.328" Width="880.597" 
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Maximized" Closing="Window_Closing" Loaded="Window_Loaded">
+  <Window.Resources>
+    <sys:String x:Key="AssemblyName">System.Activities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</sys:String>
+  </Window.Resources>
+  <Window.CommandBindings>
+    <CommandBinding Command="ApplicationCommands.New" CanExecute="CommandNew_CanExecute" Executed="CommandNew_Executed"/>
+    <CommandBinding Command="ApplicationCommands.Open" Executed="CommandOpen_Executed"/>
+    <CommandBinding Command="ApplicationCommands.Save" CanExecute="CommandSave_CanExecute" Executed="CommandSave_Executed"/>
+    <CommandBinding Command="ApplicationCommands.SaveAs" Executed="CommandSaveAs_Executed"/>
+    <CommandBinding Command="local:DataCommands.CommandRun" CanExecute="CommandRun_CanExecute" Executed="CommandRun_Executed"/>
+  </Window.CommandBindings>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="30"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <DockPanel Grid.Row="0">
+      <ToolBar>
+        <Button Name="ButtonNew" Command="ApplicationCommands.New">Новая программа</Button>
+        <Button Name="ButtonOpen" Command="ApplicationCommands.Open">Открыть</Button>
+        <Button Name="ButtonSave" Command="ApplicationCommands.Save">Сохранить</Button>
+        <Button Name="ButtonSaveAs" Command="ApplicationCommands.SaveAs">Сохранить как</Button>
+        <Border Width="10"/>
+        <Button Name="ButtonRun" Command="local:DataCommands.CommandRun">Запустить</Button>
+      </ToolBar>
+    </DockPanel>
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="149*"/>
+        <ColumnDefinition Width="520*"/>
+        <ColumnDefinition Width="223*"/>
+      </Grid.ColumnDefinitions>
+      <Border Grid.Column="0" Margin="0,0,0,-16">
+        <sapt:ToolboxControl>
+          <sapt:ToolboxCategory CategoryName="Основные действия">
+            <sapt:ToolboxItemWrapper DisplayName="Присвоить" AssemblyName="{StaticResource AssemblyName}" >
+              <sapt:ToolboxItemWrapper.ToolName>
+                System.Activities.Statements.Assign
+              </sapt:ToolboxItemWrapper.ToolName>
+            </sapt:ToolboxItemWrapper>
+            <sapt:ToolboxItemWrapper DisplayName="Сообщение"  AssemblyName="SimpleActivities">
+              <sapt:ToolboxItemWrapper.ToolName>
+                SimpleActivities.Сообщение
+              </sapt:ToolboxItemWrapper.ToolName>
+            </sapt:ToolboxItemWrapper>
+            <sapt:ToolboxItemWrapper DisplayName="Ввести число"  AssemblyName="SimpleActivities">
+              <sapt:ToolboxItemWrapper.ToolName>
+                SimpleActivities.Ввести_число
+              </sapt:ToolboxItemWrapper.ToolName>
+            </sapt:ToolboxItemWrapper>
+            <sapt:ToolboxItemWrapper DisplayName="Проверка условия" AssemblyName="{StaticResource AssemblyName}">
+              <sapt:ToolboxItemWrapper.ToolName>
+                System.Activities.Statements.FlowDecision
+              </sapt:ToolboxItemWrapper.ToolName>
+            </sapt:ToolboxItemWrapper>
+            <sapt:ToolboxItemWrapper DisplayName="Случайное число"  AssemblyName="SimpleActivities">
+              <sapt:ToolboxItemWrapper.ToolName>
+                SimpleActivities.Случайное_число
+              </sapt:ToolboxItemWrapper.ToolName>
+            </sapt:ToolboxItemWrapper>
+          </sapt:ToolboxCategory>
+        </sapt:ToolboxControl>
+      </Border>
+      <Border Grid.Column="1" Name="DesignerBorder" Margin="0,0,0,0"/>
+      <Border Grid.Column="2" Name="PropertyBorder" Margin="0,0,0,0"/>
+    </Grid>
+  </Grid>
+</Window>

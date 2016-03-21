@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. -->
+<sad:ActivityDesigner 
+    x:Class="SimpleActivities.ActivityDesigners.Случайное_числоDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"  
+    xmlns:sad="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:sadv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation"
+    xmlns:sadc="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation"
+    mc:Ignorable="d" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    Collapsible="True" AllowDrop="True" ExpandState="False">
+  <sad:ActivityDesigner.Resources>
+    <ResourceDictionary x:Uid="ResourceDictionary_1">
+      <sadc:ArgumentToExpressionConverter x:Uid="sadv:ArgumentToExpressionConverter_2" x:Key="argumentToExpressionConverter" />
+    </ResourceDictionary>
+  </sad:ActivityDesigner.Resources>
+    
+  <Grid Height="81" Name="grid1">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="23*" />
+      <RowDefinition Height="23*" />
+      <RowDefinition Height="23*" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="95*" />
+      <ColumnDefinition Width="138*" />
+    </Grid.ColumnDefinitions>
+        <Label Content="Число" Height="23" HorizontalAlignment="Left" Name="labelNum" VerticalAlignment="Top"/>
+        <Label Content="От" Height="23" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Name="labelFrom" VerticalAlignment="Top"/>
+        <Label Content="До" Height="23" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Name="labelTo" VerticalAlignment="Top"/>
+
+        <sadv:ExpressionTextBox Grid.Column="1" Grid.Row="0" Height="23" HorizontalAlignment="Left" Name="ctrlNumber" VerticalAlignment="Top" Width="139"
+                                AutomationProperties.AutomationId="Число"
+                                Expression="{Binding Path=ModelItem.Число, Mode=TwoWay, Converter={StaticResource argumentToExpressionConverter}, ConverterParameter=Out}"
+                                ExpressionType="{x:Type s:Int32}"
+                                OwnerActivity="{Binding Path=ModelItem, Mode=OneWay}" 
+                                UseLocationExpression="True"
+                                />
+
+        <sadv:ExpressionTextBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Name="ctrlFrom" VerticalAlignment="Top" Width="139"
+                                AutomationProperties.AutomationId="От"
+                                Expression="{Binding Path=ModelItem.От, Mode=TwoWay, Converter={StaticResource argumentToExpressionConverter}, ConverterParameter=In}"
+                                ExpressionType="{x:Type s:Int32}"
+                                OwnerActivity="{Binding Path=ModelItem, Mode=OneWay}" 
+                                />
+
+        <sadv:ExpressionTextBox Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Left" Name="ctrlTo" VerticalAlignment="Top" Width="139"
+                                AutomationProperties.AutomationId="До"
+                                Expression="{Binding Path=ModelItem.До, Mode=TwoWay, Converter={StaticResource argumentToExpressionConverter}, ConverterParameter=In}"
+                                ExpressionType="{x:Type s:Int32}"
+                                OwnerActivity="{Binding Path=ModelItem, Mode=OneWay}" 
+                                />
+
+    </Grid>
+</sad:ActivityDesigner>
