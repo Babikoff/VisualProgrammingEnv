@@ -2,6 +2,12 @@
 Thumbs.db
 ehthumbs.db
 
+# C# artifacts
+*.pdb
+*.g.*
+*.i.*
+*.baml
+
 # Folder config file
 Desktop.ini
 
