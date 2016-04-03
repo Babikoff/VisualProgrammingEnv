@@ -5,17 +5,17 @@ using System.Activities.Presentation;
 
 namespace SimpleActivities.ActivityDesigners
 {
-    public partial class Случайное_числоDesigner
+    public partial class InputNumberDesigner
     {
-        public Случайное_числоDesigner()
+        public InputNumberDesigner()
         {
             InitializeComponent();
         }
 
         public static void RegisterMetadata(AttributeTableBuilder builder)
         {
-            Type type = typeof(Случайное_число);
-            builder.AddCustomAttributes(type, new DesignerAttribute(typeof(Случайное_числоDesigner)));
+            Type type = typeof(InputNumber);
+            builder.AddCustomAttributes(type, new DesignerAttribute(typeof(InputNumberDesigner)));
             //builder.AddCustomAttributes(type, new ActivityDesignerOptionsAttribute { AlwaysCollapseChildren = true, AllowDrillIn = false });
             //builder.AddCustomAttributes(type, type.GetProperty("To"), BrowsableAttribute.No);
             //builder.AddCustomAttributes(type, type.GetProperty("From"), BrowsableAttribute.No);

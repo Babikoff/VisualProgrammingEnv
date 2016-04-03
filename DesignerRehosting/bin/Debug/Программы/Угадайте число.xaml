@@ -51,13 +51,13 @@
             <av:PointCollection x:Key="ConnectorLocation">519,570 687.444444444444,570 687.444444444444,150 375,150</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
-        <s3:Сообщение sap:VirtualizedContainerService.HintSize="220,90" Заголовок="[&quot;Вы угадали!&quot;]" Текст="[&quot;Игра закончена, до свидания!&quot;]">
+        <s3:ExpressionMessage sap:VirtualizedContainerService.HintSize="220,90" Заголовок="[&quot;Вы угадали!&quot;]" Текст="[&quot;Игра закончена, до свидания!&quot;]">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-        </s3:Сообщение>
+        </s3:ExpressionMessage>
       </FlowStep>
     </FlowDecision.True>
     <FlowDecision.False>
@@ -79,32 +79,32 @@
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <av:Point x:Key="ShapeLocation">381,625</av:Point>
                 <av:Size x:Key="ShapeSize">220,90</av:Size>
-                <av:PointCollection x:Key="ConnectorLocation">381,670 364.5,670 364.5,325 394.5,325 394.5,250 364.5,250</av:PointCollection>
+                <av:PointCollection x:Key="ConnectorLocation">381,670 351,670 351,325 405.5,325 405.5,250 375.5,250</av:PointCollection>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <s3:Сообщение sap:VirtualizedContainerService.HintSize="220,90" Заголовок="[&quot;Не угадали&quot;]" Текст="[&quot;Загаданное число больше вашего&quot;]">
+            <s3:ExpressionMessage sap:VirtualizedContainerService.HintSize="220,90" Заголовок="[&quot;Не угадали&quot;]" Текст="[&quot;Загаданное число больше вашего&quot;]">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-            </s3:Сообщение>
+            </s3:ExpressionMessage>
             <FlowStep.Next>
               <FlowStep x:Name="__ReferenceID1">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <av:Point x:Key="ShapeLocation">135.5,205</av:Point>
-                    <av:Size x:Key="ShapeSize">228,90</av:Size>
-                    <av:PointCollection x:Key="ConnectorLocation">250,295 250,366.5</av:PointCollection>
+                    <av:Size x:Key="ShapeSize">240,90</av:Size>
+                    <av:PointCollection x:Key="ConnectorLocation">255.5,295 255.5,325 250,325 250,366.5</av:PointCollection>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <s3:Ввести_число sap:VirtualizedContainerService.HintSize="228,90" Надпись="Угадайте число от 1 до 20" Число="[число]">
+                <s3:InputNumber sap:VirtualizedContainerService.HintSize="240,90" Надпись="Угадайте число от 1 до 20" Число="[число]">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                </s3:Ввести_число>
+                </s3:InputNumber>
                 <FlowStep.Next>
                   <x:Reference>__ReferenceID0</x:Reference>
                 </FlowStep.Next>
@@ -118,16 +118,16 @@
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <av:Point x:Key="ShapeLocation">531,495</av:Point>
                 <av:Size x:Key="ShapeSize">220,90</av:Size>
-                <av:PointCollection x:Key="ConnectorLocation">751,540 781,540 781,250 363.5,250</av:PointCollection>
+                <av:PointCollection x:Key="ConnectorLocation">751,540 781,540 781,250 375.5,250</av:PointCollection>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <s3:Сообщение sap:VirtualizedContainerService.HintSize="220,90" Заголовок="[&quot;Не угадали&quot;]" Текст="[&quot;Загаданное число меньше вашего&quot;]">
+            <s3:ExpressionMessage sap:VirtualizedContainerService.HintSize="220,90" Заголовок="[&quot;Не угадали&quot;]" Текст="[&quot;Загаданное число меньше вашего&quot;]">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-            </s3:Сообщение>
+            </s3:ExpressionMessage>
             <FlowStep.Next>
               <x:Reference>__ReferenceID1</x:Reference>
             </FlowStep.Next>
@@ -149,13 +149,13 @@
         <av:PointCollection x:Key="ConnectorLocation">110,168.5 110,250 135.5,250</av:PointCollection>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <s3:Случайное_число sap:VirtualizedContainerService.HintSize="200,117" До="20" От="1" Число="[загаданное_число]">
+    <s3:RandomNumber sap:VirtualizedContainerService.HintSize="200,117" До="20" От="1" Число="[загаданное_число]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-    </s3:Случайное_число>
+    </s3:RandomNumber>
     <FlowStep.Next>
       <x:Reference>__ReferenceID1</x:Reference>
     </FlowStep.Next>

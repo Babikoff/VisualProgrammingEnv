@@ -54,11 +54,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivityDesigners\Случайное_числоDesigner.cs" />
+    <Compile Include="ActivityDesigners\ExpressionMessageDesigner.cs" />
+    <Compile Include="ActivityDesigners\InputExpressionNumberDesigner.cs" />
+    <Compile Include="ActivityDesigners\InputNumberDesigner.cs" />
+    <Compile Include="ActivityDesigners\SimpleMessageDesigner.cs" />
+    <Compile Include="ActivityDesigners\RandomNumberDesigner.cs" />
     <Compile Include="ActivityDesigners\СообщениеDesigner.cs" />
     <Compile Include="ActivityDesigners\НапечататьDesigner.cs" />
     <Compile Include="ActivityDesigners\Ввести_числоDesigner.cs" />
-    <Compile Include="Случайное_число.cs" />
+    <Compile Include="ExpressionMessage.cs" />
+    <Compile Include="InputExpressionNumber.cs" />
+    <Compile Include="InputNumber.cs" />
+    <Compile Include="SimpleMessage.cs" />
+    <Compile Include="RandomNumber.cs" />
+    <Compile Include="WorkflowExecutionLog.cs" />
     <Compile Include="Сообщение.cs" />
     <Compile Include="InputIntForm.cs">
       <SubType>Form</SubType>
@@ -76,7 +85,23 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ActivityDesigners\Случайное_числоDesigner.xaml">
+    <Page Include="ActivityDesigners\ExpressionMessageDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ActivityDesigners\InputExpressionNumberDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ActivityDesigners\InputNumberDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ActivityDesigners\SimpleMessageDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ActivityDesigners\RandomNumberDesigner.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

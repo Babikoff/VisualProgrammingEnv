@@ -12,8 +12,8 @@ using System.Workflow.ComponentModel.Serialization;
 namespace SimpleActivities
 {
     [ContentProperty("Число")]
-    [Designer(typeof(ActivityDesigners.Ввести_числоDesigner))]
-    public sealed class Ввести_число : CodeActivity
+    [Designer(typeof(ActivityDesigners.InputExpressionNumberDesigner))]
+    public sealed class InputExpressionNumber : CodeActivity
     {
         [DefaultValue("Введите число")]
         public InArgument<string> Надпись
@@ -30,7 +30,7 @@ namespace SimpleActivities
             set; 
         }
 
-        public Ввести_число()
+        public InputExpressionNumber()
         {
         }
 
@@ -52,13 +52,14 @@ namespace SimpleActivities
             var inputIntForm = new InputIntForm();
             inputIntForm.Number = Число.Get((ActivityContext)context);
             inputIntForm.Message = Надпись.Get((ActivityContext)context);
-            string logOutput;
 
+            string logOutput;
             var res = inputIntForm.ShowDialog();
+
             if (res == DialogResult.OK)
             {
                 Число.Set(context, inputIntForm.Number);
-                logOutput = inputIntForm.Message + ": " + inputIntForm.Number.ToString();
+                logOutput = inputIntForm.Message + ": " + inputIntForm.Number;
             }
             else
             {

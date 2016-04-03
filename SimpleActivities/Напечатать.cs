@@ -34,12 +34,9 @@ namespace SimpleActivities
         {
             RuntimeArgument runtimeArgument1 = new RuntimeArgument("Печатать", typeof(object), ArgumentDirection.In);
             metadata.Bind((Argument)this.Печатать, runtimeArgument1);
-            //RuntimeArgument runtimeArgument2 = new RuntimeArgument("Перевод_строки", typeof(bool), ArgumentDirection.In);
-            //metadata.Bind((Argument)this.Перевод_строки, runtimeArgument2);
             metadata.SetArgumentsCollection(new Collection<RuntimeArgument>()
               {
                 runtimeArgument1,
-                //runtimeArgument2
               });
         }
 
@@ -48,9 +45,11 @@ namespace SimpleActivities
             var text = Печатать.Get((ActivityContext)context).ToString();
 
             if (Перевод_строки)
-                Console.WriteLine(text);
+                WorkflowExecutionLog.Write(this, text);
             else
-                Console.Write(text);
+                WorkflowExecutionLog.Write(this, text);
+
+            WorkflowExecutionLog.Write(this, string.Empty);
         }
     }
 }

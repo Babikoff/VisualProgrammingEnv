@@ -13,6 +13,8 @@ using System.IO;
 using System.Windows;
 using DesignerRehosting.Properties;
 using System.Activities.Presentation.Services;
+using SimpleActivities;
+using System.Collections.Generic;
 
 namespace DesignerRehosting
 {
@@ -34,7 +36,6 @@ namespace DesignerRehosting
             base.OnInitialized(e);
             // register metadata
             (new DesignerMetadata()).Register();
-
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -64,6 +65,11 @@ namespace DesignerRehosting
                     NewWorkflow();
                 }
             }
+
+            WorkflowExecutionLog.WorkflowOutputEvent += (senderActivity, text) =>
+            {
+                InOutTextBlock.Text += (text + Environment.NewLine);
+            };
         }
 
         private void NewWorkflow()
@@ -102,6 +108,16 @@ namespace DesignerRehosting
         {
             _isCurrentProgramStored = false;
 
+            var localaizedDisplayNames = new Dictionary<Type, string>
+            {
+                {typeof(ExpressionMessage), "Сообщение - выражение"},
+                {typeof(SimpleMessage), "Простое сообщение"},
+                {typeof(RandomNumber),  "Случайное число"},
+                {typeof(InputNumber),  "Ввести число"},
+                {typeof(Assign),  "Присвоить"},
+                {typeof(InputExpressionNumber),  "Ввести число"},
+            };
+
             if (e != null && e.ItemsAdded != null)
             {
                 foreach (System.Activities.Presentation.Model.ModelItem item in e.ItemsAdded)
@@ -112,6 +128,18 @@ namespace DesignerRehosting
                         item.Properties["DisplayName"].SetValue("Условие");
                         item.Properties["TrueLabel"].SetValue("Да");
                         item.Properties["FalseLabel"].SetValue("Нет");
+                    }
+                    else if (item.ItemType == typeof(FlowStep))
+                    {
+                        if (item.Content != null)
+                        {
+                            string newDisplayName = null;
+                            localaizedDisplayNames.TryGetValue(item.Content.ComputedValue.GetType(), out newDisplayName);
+                            if (!string.IsNullOrEmpty(newDisplayName))
+                            {
+                                (item.Content.ComputedValue as Activity).DisplayName = newDisplayName;
+                            }
+                        }
                     }
                 }
             }
@@ -135,7 +163,7 @@ namespace DesignerRehosting
             return path;
         }
 
-        string GetOpenFile()
+        string GetOpenFileName()
         {
             var path = GetProgramDirPath();
 
@@ -144,7 +172,8 @@ namespace DesignerRehosting
                 {
                     Title = "Укажите файл с программой",
                     InitialDirectory = path,
-                    Filter = "|*.xaml"
+                    Filter = "|*.xaml",
+                    DefaultExt = "*.xaml"
                 };
 
             var openFileDialogResult = openFileDialog.ShowDialog();
@@ -156,7 +185,7 @@ namespace DesignerRehosting
             return null;
         }
 
-        string GetSaveFile()
+        string GetSaveFileName()
         {
             var path = GetProgramDirPath();
             if (!Directory.Exists(path))
@@ -168,13 +197,42 @@ namespace DesignerRehosting
                 {
                     Title = "Укажите файл для сохранения программы",
                     InitialDirectory = path,
-                    Filter = "|*.xaml"
+                    Filter = "|*.xaml", 
+                    OverwritePrompt = false,
+                    DefaultExt = "*.xaml"
                 };
 
             var openFileDialogResult = saveFileDialog.ShowDialog();
             if (openFileDialogResult == System.Windows.Forms.DialogResult.OK)
             {
-                return saveFileDialog.FileName;
+                if (!File.Exists(saveFileDialog.FileName))
+                {
+                    return saveFileDialog.FileName;
+                }
+                else
+                {
+                    var shortFileName = Path.GetFileName(saveFileDialog.FileName);
+                    var mbResult =
+                        MessageBox.Show(
+                            string.Format("Вы действительно хотите записать свою новую программу в файл '{0}'", shortFileName),
+                            "Внимание!",
+                            MessageBoxButton.YesNoCancel);
+
+                    switch (mbResult)
+                    {
+                        case MessageBoxResult.No:
+                            // Вызовем себя еще раз, чтобы переспросить имя файла
+                            return GetSaveFileName();
+
+                        case MessageBoxResult.Yes:
+                            return saveFileDialog.FileName;
+
+                        case MessageBoxResult.None:
+                        case MessageBoxResult.Cancel:
+                        default:
+                            return null;
+                    }
+                }
             }
 
             return null;
@@ -191,9 +249,16 @@ namespace DesignerRehosting
 
         private void SaveProgram()
         {
-            _wd.Save(_currentProgramFilePath);
-            _isCurrentProgramStored = true;
-            StoreCurrentProgramName();
+            if (!string.IsNullOrEmpty(_currentProgramFilePath))
+            {
+                _wd.Save(_currentProgramFilePath);
+                _isCurrentProgramStored = true;
+                StoreCurrentProgramName();
+            }
+            else
+            {
+                SaveProgramAs();
+            }
         }
 
         private void StoreCurrentProgramName()
@@ -209,8 +274,11 @@ namespace DesignerRehosting
 
         private void SaveProgramAs()
         {
-            _currentProgramFilePath = GetSaveFile();
-            SaveProgram();
+            _currentProgramFilePath = GetSaveFileName();
+            if (!string.IsNullOrEmpty(_currentProgramFilePath))
+            {
+                SaveProgram();
+            }
         }
         #endregion
 
@@ -228,15 +296,15 @@ namespace DesignerRehosting
 
         private void CommandOpen_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
-            var filePath = GetOpenFile();
+            var filePath = GetOpenFileName();
             if (string.IsNullOrEmpty(filePath)) return;
             OpenProgram(filePath);
         }
 
-        private void CommandSave_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = !string.IsNullOrEmpty(_currentProgramFilePath);
-        }
+        //private void CommandSave_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        //{
+        //    e.CanExecute = !string.IsNullOrEmpty(_currentProgramFilePath);
+        //}
 
         private void CommandSave_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
@@ -255,6 +323,8 @@ namespace DesignerRehosting
 
         private void CommandRun_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
+            InOutTextBlock.Text = string.Empty;
+
             // Для того чтобы текущее Workflow безглючно запускалось, нужно сохранить его в файл,
             // загрузить файл в другое Workflow и уже запускать 
             if (String.IsNullOrEmpty(_runningWorkflowTemporaryFileName))

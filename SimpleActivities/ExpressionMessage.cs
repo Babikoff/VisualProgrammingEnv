@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SimpleActivities
 {
-    [ContentProperty("Сообщение")]
-    [Designer(typeof(ActivityDesigners.СообщениеDesigner))]
-    public sealed class Сообщение : CodeActivity
+    [ContentProperty("Текст")]
+    [Designer(typeof(ActivityDesigners.ExpressionMessageDesigner))]
+    public sealed class ExpressionMessage : CodeActivity
     {
         [DefaultValue(null)]
         public InArgument<object> Заголовок
@@ -27,7 +27,7 @@ namespace SimpleActivities
             set; 
         }
 
-        public Сообщение()
+        public ExpressionMessage()
         {
         }
 
@@ -49,7 +49,6 @@ namespace SimpleActivities
             var caption = Заголовок.Get((ActivityContext)context).ToString();
             var text = Текст.Get((ActivityContext)context).ToString();
             MessageBox.Show(text, caption);
-
             WorkflowExecutionLog.Write(this, caption + ": " + text);
             WorkflowExecutionLog.Write(this, string.Empty);
         }

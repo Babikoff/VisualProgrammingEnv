@@ -6,14 +6,12 @@ using System.IO;
 using System.Runtime;
 using System.Windows;
 using System.Windows.Forms;
-//using System.Windows.Markup;
 using System.Workflow.ComponentModel.Serialization;
 
 namespace SimpleActivities
 {
-    //[ContentProperty("Число")]
-    [Designer(typeof(ActivityDesigners.Случайное_числоDesigner))]
-    public sealed class Случайное_число : CodeActivity
+    [Designer(typeof(ActivityDesigners.RandomNumberDesigner))]
+    public sealed class RandomNumber : CodeActivity
     {
         [RequiredArgument]
         public OutArgument<Int32> Число
@@ -36,7 +34,7 @@ namespace SimpleActivities
             set;
         }
 
-        public Случайное_число()
+        public RandomNumber()
         {
         }
 
@@ -63,7 +61,9 @@ namespace SimpleActivities
             var to = До.Get((ActivityContext)context);
             var randomNumber = random.Next(from, to);
             Число.Set(context, randomNumber);
-            Console.WriteLine("Сгенерировано случайное число: " + randomNumber);
+            
+            WorkflowExecutionLog.Write(this, "Сгенерировано случайное число: " + randomNumber);
+            WorkflowExecutionLog.Write(this, string.Empty);
         }
     }
 }

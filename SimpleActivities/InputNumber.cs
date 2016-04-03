@@ -12,11 +12,10 @@ using System.Workflow.ComponentModel.Serialization;
 namespace SimpleActivities
 {
     [ContentProperty("Число")]
-    [Designer(typeof(ActivityDesigners.Ввести_числоDesigner))]
-    public sealed class Ввести_число : CodeActivity
+    [Designer(typeof(ActivityDesigners.InputNumberDesigner))]
+    public sealed class InputNumber : CodeActivity
     {
-        [DefaultValue("Введите число")]
-        public InArgument<string> Надпись
+        public string Надпись
         {
             get;
             set;
@@ -30,20 +29,17 @@ namespace SimpleActivities
             set; 
         }
 
-        public Ввести_число()
+        public InputNumber()
         {
         }
 
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
-            RuntimeArgument runtimeArgument1 = new RuntimeArgument("Надпись", typeof(string), ArgumentDirection.In);
-            metadata.Bind((Argument)this.Надпись, runtimeArgument1);
-            RuntimeArgument runtimeArgument2 = new RuntimeArgument("Число", typeof(Int32), ArgumentDirection.InOut);
-            metadata.Bind((Argument)this.Число, runtimeArgument2);
+            RuntimeArgument runtimeArgument1 = new RuntimeArgument("Число", typeof(Int32), ArgumentDirection.InOut);
+            metadata.Bind((Argument)this.Число, runtimeArgument1);
             metadata.SetArgumentsCollection(new Collection<RuntimeArgument>()
               {
                 runtimeArgument1,
-                runtimeArgument2,
               });
         }
 
@@ -51,19 +47,20 @@ namespace SimpleActivities
         {
             var inputIntForm = new InputIntForm();
             inputIntForm.Number = Число.Get((ActivityContext)context);
-            inputIntForm.Message = Надпись.Get((ActivityContext)context);
+            inputIntForm.Message = Надпись;
             string logOutput;
 
             var res = inputIntForm.ShowDialog();
             if (res == DialogResult.OK)
             {
                 Число.Set(context, inputIntForm.Number);
-                logOutput = inputIntForm.Message + ": " + inputIntForm.Number.ToString();
+                logOutput = inputIntForm.Message + ": " + inputIntForm.Number;
             }
             else
             {
                 logOutput = "Число не было введено";
             }
+
             WorkflowExecutionLog.Write(this, logOutput);
             WorkflowExecutionLog.Write(this, string.Empty);
         }

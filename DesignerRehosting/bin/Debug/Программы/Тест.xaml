@@ -1,0 +1,101 @@
+﻿<Flowchart mc:Ignorable="sads sap" DisplayName="Блок-схема" sap:VirtualizedContainerService.HintSize="614,636" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:s1="clr-namespace:System;assembly=System"
+ xmlns:s2="clr-namespace:System;assembly=System.Core"
+ xmlns:s3="clr-namespace:SimpleActivities;assembly=SimpleActivities"
+ xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Flowchart.Variables>
+    <Variable x:TypeArguments="x:Int32" Name="Число1" />
+  </Flowchart.Variables>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+      <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+      <av:Size x:Key="ShapeSize">60,75</av:Size>
+      <av:PointCollection x:Key="ConnectorLocation">270,40 240,40 240,50 220.816666666667,50</av:PointCollection>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Flowchart.StartNode>
+    <x:Reference>__ReferenceID3</x:Reference>
+  </Flowchart.StartNode>
+  <FlowStep x:Name="__ReferenceID1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <av:Point x:Key="ShapeLocation">6,125</av:Point>
+        <av:Size x:Key="ShapeSize">228,90</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">234,170 264,170 264,60 280,60</av:PointCollection>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <s3:InputNumber DisplayName="Ввести число" sap:VirtualizedContainerService.HintSize="228,90" Надпись="Просто введите число" Число="[Число1]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </s3:InputNumber>
+    <FlowStep.Next>
+      <FlowStep x:Name="__ReferenceID2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">280,15</av:Point>
+            <av:Size x:Key="ShapeSize">220,90</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">390,105 390,175</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <s3:ExpressionMessage DisplayName="Сообщение - выражение" sap:VirtualizedContainerService.HintSize="220,90" Заголовок="[&quot;Вы ввели&quot;]" Текст="[Число1]">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </s3:ExpressionMessage>
+        <FlowStep.Next>
+          <FlowStep x:Name="__ReferenceID0">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <av:Point x:Key="ShapeLocation">276,175</av:Point>
+                <av:Size x:Key="ShapeSize">228,90</av:Size>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <s3:InputExpressionNumber DisplayName="Ввести число" sap:VirtualizedContainerService.HintSize="228,90" Надпись="[&quot;Введите другое число вместо &quot; + Число1.ToString()]" Число="[Число1]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </s3:InputExpressionNumber>
+          </FlowStep>
+        </FlowStep.Next>
+      </FlowStep>
+    </FlowStep.Next>
+  </FlowStep>
+  <x:Reference>__ReferenceID0</x:Reference>
+  <FlowStep x:Name="__ReferenceID3">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <av:Point x:Key="ShapeLocation">0.816666666666663,5</av:Point>
+        <av:Size x:Key="ShapeSize">220,90</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">110.816666666667,95 110.816666666667,125 120,125</av:PointCollection>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <s3:SimpleMessage DisplayName="Простое сообщение" sap:VirtualizedContainerService.HintSize="220,90" Заголовок="Простое сообщение" Текст="Простой текст">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </s3:SimpleMessage>
+    <FlowStep.Next>
+      <x:Reference>__ReferenceID1</x:Reference>
+    </FlowStep.Next>
+  </FlowStep>
+  <x:Reference>__ReferenceID2</x:Reference>
+</Flowchart>
